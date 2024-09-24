@@ -10,35 +10,35 @@ using System.Threading.Tasks;
 namespace MobileСompanyIS.ViewModels
 {
     public class BillsViewModel : INotifyPropertyChanged
+{
+    private Bill _selectedBill;
+
+    public ObservableCollection<Bill> Bills { get; set; }
+
+    public Bill SelectedBill
     {
-        private Bill _selectedBill;
-
-        public ObservableCollection<Bill> Bills { get; set; }
-
-        public Bill SelectedBill
+        get => _selectedBill;
+        set
         {
-            get => _selectedBill;
-            set
-            {
-                _selectedBill = value;
-                OnPropertyChanged(nameof(SelectedBill));
-            }
+            _selectedBill = value;
+            OnPropertyChanged(nameof(SelectedBill));
         }
+    }
 
-        public BillsViewModel()
-        {
-            // Пример данных
-            Bills = new ObservableCollection<Bill>
+    public BillsViewModel()
+    {
+        // Пример данных
+        Bills = new ObservableCollection<Bill>
         {
             new Bill { Abonent = new Abonent { FIO = "Иван Иванов" }, Date = DateTime.Now, Amount = 100m, Status = "Оплачен" },
             new Bill { Abonent = new Abonent { FIO = "Мария Смирнова" }, Date = DateTime.Now, Amount = 50m, Status = "Не оплачен" }
         };
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+}
 }

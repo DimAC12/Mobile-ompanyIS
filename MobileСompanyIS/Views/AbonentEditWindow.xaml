@@ -1,0 +1,22 @@
+﻿<Window x:Class="MobileСompanyIS.Views.AbonentEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MobileСompanyIS.Views"
+        mc:Ignorable="d"
+        Title="AbonentEditWindow" Height="450" Width="800">
+    <Grid>
+        <StackPanel Margin="10">
+            <Label Content="ФИО:" />
+            <TextBox Text="{Binding Abonent.FIO, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Content="Телефон:" />
+            <TextBox Text="{Binding Abonent.PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Content="Баланс:" />
+            <TextBox Text="{Binding Abonent.Balance, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Content="Статус:" />
+            <TextBox Text="{Binding Abonent.Status, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Content="Сохранить" Command="{Binding SaveCommand}" Width="100" Margin="0,10,0,0" />
+        </StackPanel>
+    </Grid>
+</Window>
