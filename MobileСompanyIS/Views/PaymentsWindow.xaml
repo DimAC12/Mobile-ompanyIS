@@ -1,0 +1,21 @@
+﻿<Window x:Class="MobileСompanyIS.Views.PaymentsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MobileСompanyIS.Views"
+        mc:Ignorable="d"
+        Title="PaymentsWindow" Height="450" Width="800">
+    <Grid>
+        <ListView ItemsSource="{Binding Payments}" SelectedItem="{Binding SelectedPayment}" Margin="10">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Абонент" DisplayMemberBinding="{Binding Abonent.FIO}" Width="150" />
+                    <GridViewColumn Header="Дата платежа" DisplayMemberBinding="{Binding PaymentDate}" Width="100" />
+                    <GridViewColumn Header="Сумма" DisplayMemberBinding="{Binding Amount}" Width="100" />
+                    <GridViewColumn Header="Метод оплаты" DisplayMemberBinding="{Binding PaymentMethod}" Width="100" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>
