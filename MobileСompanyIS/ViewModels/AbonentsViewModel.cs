@@ -36,6 +36,7 @@ namespace MobileСompanyIS.ViewModels
         public ICommand AddAbonentCommand { get; }
         public ICommand EditAbonentCommand { get; }
         public ICommand DeleteAbonentCommand { get; }
+        public ICommand StartSimulationCommand { get; }
 
         public AbonentsViewModel()
         {
@@ -47,6 +48,7 @@ namespace MobileСompanyIS.ViewModels
 
             Abonents.CollectionChanged += Abonents_CollectionChanged;
         }
+        
 
         private void Abonents_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
