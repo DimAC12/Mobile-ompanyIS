@@ -15,10 +15,13 @@
         <ListView ItemsSource="{Binding Abonents}" SelectedItem="{Binding SelectedAbonent}" Margin="10">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ФИО" DisplayMemberBinding="{Binding FIO}" Width="150" />
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}" Width="50" />
+                    <GridViewColumn Header="ФИО" DisplayMemberBinding="{Binding FullName}" Width="150" />
                     <GridViewColumn Header="Телефон" DisplayMemberBinding="{Binding PhoneNumber}" Width="100" />
                     <GridViewColumn Header="Баланс" DisplayMemberBinding="{Binding Balance}" Width="100" />
                     <GridViewColumn Header="Статус" DisplayMemberBinding="{Binding Status}" Width="100" />
+                    <GridViewColumn Header="Тариф" DisplayMemberBinding="{Binding Tariff.Name}" Width="100" />
+                    <GridViewColumn Header="Дата рег." DisplayMemberBinding="{Binding FormattedRegistrationDate}" Width="100" />
                 </GridView>
             </ListView.View>
         </ListView>

@@ -8,7 +8,7 @@ namespace MobileСompanyIS.Models
 {
     public class Service
     {
-        public int Id { get; set; }
+        public int ID { get; set; }
         public string Name { get; set; }
         public string Type { get; set; } // Голосовая связь, SMS, Интернет и т.д.
         public decimal Cost { get; set; }

@@ -1,0 +1,22 @@
+﻿<Window x:Class="MobileСompanyIS.Views.TariffEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MobileСompanyIS.Views"
+        mc:Ignorable="d"
+        Title="TariffEditWindow" Height="450" Width="800">
+    <Grid>
+        <StackPanel Margin="10">
+            <Label Content="Название:" />
+            <TextBox Text="{Binding Tariff.Name, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Content="Цена за минуту:" />
+            <TextBox Text="{Binding Tariff.CostPerMinute, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Content="Цена за SMS:" />
+            <TextBox Text="{Binding Tariff.CostPerSms, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Content="Цена за Мб:" />
+            <TextBox Text="{Binding Tariff.CostPerMb, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Content="Сохранить" Command="{Binding SaveCommand}" Width="100" Margin="0,10,0,0" />
+        </StackPanel>
+    </Grid>
+</Window>

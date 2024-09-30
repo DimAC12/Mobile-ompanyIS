@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,6 +62,13 @@ namespace MobileСompanyIS.ViewModels
 
             if (addWindow.ShowDialog() == true)
             {
+                int id = 0;
+                if (Abonents.Count > 0) 
+                {
+                    id = Abonents.Last().ID + 1;
+                }
+                addViewModel.Abonent.ID = id;
+                addViewModel.Abonent.RegistrationDate = DateTime.Now;
                 Abonents.Add(addViewModel.Abonent);
             }
         }
@@ -77,10 +85,13 @@ namespace MobileСompanyIS.ViewModels
                 if (editWindow.ShowDialog() == true)
                 {
                     // Обновить данные в списке
-                    SelectedAbonent.FIO = editViewModel.Abonent.FIO;
+                    SelectedAbonent.FullName = editViewModel.Abonent.FullName;
                     SelectedAbonent.PhoneNumber = editViewModel.Abonent.PhoneNumber;
                     SelectedAbonent.Balance = editViewModel.Abonent.Balance;
                     SelectedAbonent.Status = editViewModel.Abonent.Status;
+                    SelectedAbonent.Tariff = editViewModel.Abonent.Tariff;
+
+                    _dataService.SaveAbonents(new List<Abonent>(Abonents));
                 }
             }
         }

@@ -8,7 +8,7 @@ namespace MobileСompanyIS.Models
 {
     public class Tariff
     {
-        public int Id { get; set; }
+        public int ID { get; set; }
         public string Name { get; set; }
         public decimal CostPerMinute { get; set; }
         public decimal CostPerSms { get; set; }

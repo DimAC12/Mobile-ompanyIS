@@ -30,8 +30,8 @@ namespace MobileСompanyIS.ViewModels
         // Пример данных
         Bills = new ObservableCollection<Bill>
         {
-            new Bill { Abonent = new Abonent { FIO = "Иван Иванов" }, Date = DateTime.Now, Amount = 100m, Status = "Оплачен" },
-            new Bill { Abonent = new Abonent { FIO = "Мария Смирнова" }, Date = DateTime.Now, Amount = 50m, Status = "Не оплачен" }
+            new Bill { Abonent = new Abonent { FullName = "Иван Иванов" }, Date = DateTime.Now, Amount = 100m, Status = "Оплачен" },
+            new Bill { Abonent = new Abonent { FullName = "Мария Смирнова" }, Date = DateTime.Now, Amount = 50m, Status = "Не оплачен" }
         };
     }
 

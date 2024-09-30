@@ -3,19 +3,35 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MobileСompanyIS.Views"
+        xmlns:local="clr-namespace:MobileСompanyIS.Views" xmlns:sys="clr-namespace:System;assembly=netstandard"
         mc:Ignorable="d"
         Title="AbonentEditWindow" Height="450" Width="800">
     <Grid>
         <StackPanel Margin="10">
             <Label Content="ФИО:" />
-            <TextBox Text="{Binding Abonent.FIO, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Text="{Binding Abonent.FullName, UpdateSourceTrigger=PropertyChanged}" />
             <Label Content="Телефон:" />
             <TextBox Text="{Binding Abonent.PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
             <Label Content="Баланс:" />
             <TextBox Text="{Binding Abonent.Balance, UpdateSourceTrigger=PropertyChanged}" />
             <Label Content="Статус:" />
-            <TextBox Text="{Binding Abonent.Status, UpdateSourceTrigger=PropertyChanged}" />
+            <ComboBox SelectedItem="{Binding Abonent.Status, UpdateSourceTrigger=PropertyChanged}">
+                <ComboBox.ItemsSource>
+                    <x:Array Type="{x:Type sys:String}">
+                        <sys:String>Активен</sys:String>
+                        <sys:String>Заблокирован</sys:String>
+                    </x:Array>
+                </ComboBox.ItemsSource>
+            </ComboBox>
+            <!--<TextBox Text="{Binding Abonent.Status, UpdateSourceTrigger=PropertyChanged}" />-->
+            <Label Content="Тариф:" />
+            <ComboBox ItemsSource="{Binding Tariffs}" SelectedItem="{Binding SelectedTariff}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
             <Button Content="Сохранить" Command="{Binding SaveCommand}" Width="100" Margin="0,10,0,0" />
         </StackPanel>
     </Grid>
