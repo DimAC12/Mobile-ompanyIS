@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace MobileСompanyIS.Models
 {
@@ -65,6 +66,8 @@ namespace MobileСompanyIS.Models
         {
             get => RegistrationDate.ToString("dd.MM.yyyy HH:mm:ss");
         }
+
+        public ObservableCollection<Payment> Payments { get; } = new ObservableCollection<Payment>();
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)

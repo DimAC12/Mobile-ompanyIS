@@ -1,17 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MobileСompanyIS.Models
 {
-    public class Payment
+    public class Payment : INotifyPropertyChanged
     {
-        public int Id { get; set; }
+        private decimal _amount;
+
         public Abonent Abonent { get; set; }
+
+        public decimal Amount
+        {
+            get => _amount;
+            set
+            {
+                _amount = value;
+                OnPropertyChanged(nameof(Amount));
+            }
+        }
+
         public DateTime PaymentDate { get; set; }
-        public decimal Amount { get; set; }
-        public string PaymentMethod { get; set; } // Наличный, Безналичный
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

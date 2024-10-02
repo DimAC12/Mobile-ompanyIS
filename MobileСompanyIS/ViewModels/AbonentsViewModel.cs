@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -17,11 +18,17 @@ namespace MobileСompanyIS.ViewModels
 {
     public class AbonentsViewModel : INotifyPropertyChanged
     {
+        private BalanceReplenishmentSimulator _replenishmentSimulator;
+        private ExpenseSimulator _expenseSimulator;
+
+        CancellationTokenSource _cancellationTokenSource;
+
         private DataService _dataService = new DataService();
 
         private Abonent _selectedAbonent;
 
         public ObservableCollection<Abonent> Abonents { get; set; }
+        public ObservableCollection<Tariff> Tariffs { get; set; }
 
         public Abonent SelectedAbonent
         {
@@ -41,14 +48,32 @@ namespace MobileСompanyIS.ViewModels
         public AbonentsViewModel()
         {
             Abonents = new ObservableCollection<Abonent>(_dataService.LoadAbonents());
+            Tariffs = new ObservableCollection<Tariff>(_dataService.LoadTariffs());
 
             AddAbonentCommand = new RelayCommand(AddAbonent);
             EditAbonentCommand = new RelayCommand(EditAbonent, CanEditAbonent);
             DeleteAbonentCommand = new RelayCommand(DeleteAbonent, CanDeleteAbonent);
 
             Abonents.CollectionChanged += Abonents_CollectionChanged;
+
+            //StartSimulation();
         }
-        
+
+        //public void StartSimulation()
+        //{
+        //    _cancellationTokenSource = new CancellationTokenSource();
+        //    _replenishmentSimulator = new BalanceReplenishmentSimulator(Abonents.ToList());
+        //    _expenseSimulator = new ExpenseSimulator(Abonents.ToList(), Tariffs.ToList());
+
+        //    // Запускаем симуляции параллельно
+        //    Task.Run(() => _replenishmentSimulator.SimulateReplenishment(_cancellationTokenSource.Token));
+        //    Task.Run(() => _expenseSimulator.SimulateExpenses(_cancellationTokenSource.Token));
+        //}
+
+        //public void StopSimulation()
+        //{
+        //    _cancellationTokenSource?.Cancel();
+        //}
 
         private void Abonents_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
@@ -72,6 +97,9 @@ namespace MobileСompanyIS.ViewModels
                 addViewModel.Abonent.ID = id;
                 addViewModel.Abonent.RegistrationDate = DateTime.Now;
                 Abonents.Add(addViewModel.Abonent);
+
+                //StopSimulation();
+                //StartSimulation();
             }
         }
 
@@ -94,6 +122,9 @@ namespace MobileСompanyIS.ViewModels
                     SelectedAbonent.Tariff = editViewModel.Abonent.Tariff;
 
                     _dataService.SaveAbonents(new List<Abonent>(Abonents));
+
+                    //StopSimulation();
+                    //StartSimulation();
                 }
             }
         }

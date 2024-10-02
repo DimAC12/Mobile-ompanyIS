@@ -13,7 +13,6 @@
                     <GridViewColumn Header="Абонент" DisplayMemberBinding="{Binding Abonent.FullName}" Width="150" />
                     <GridViewColumn Header="Дата" DisplayMemberBinding="{Binding Date}" Width="100" />
                     <GridViewColumn Header="Сумма" DisplayMemberBinding="{Binding Amount}" Width="100" />
-                    <GridViewColumn Header="Статус" DisplayMemberBinding="{Binding Status}" Width="100" />
                 </GridView>
             </ListView.View>
         </ListView>

@@ -10,7 +10,7 @@
         <ListView ItemsSource="{Binding Payments}" SelectedItem="{Binding SelectedPayment}" Margin="10">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Абонент" DisplayMemberBinding="{Binding Abonent.FIO}" Width="150" />
+                    <GridViewColumn Header="Абонент" DisplayMemberBinding="{Binding Abonent.FullName}" Width="150" />
                     <GridViewColumn Header="Дата платежа" DisplayMemberBinding="{Binding PaymentDate}" Width="100" />
                     <GridViewColumn Header="Сумма" DisplayMemberBinding="{Binding Amount}" Width="100" />
                     <GridViewColumn Header="Метод оплаты" DisplayMemberBinding="{Binding PaymentMethod}" Width="100" />

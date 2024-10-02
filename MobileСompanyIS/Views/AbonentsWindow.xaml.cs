@@ -23,7 +23,7 @@ namespace MobileСompanyIS.Views
         public AbonentsWindow()
         {
             InitializeComponent();
-            DataContext = new AbonentsViewModel();
+            //DataContext = new AbonentsViewModel();
         }
     }
 }

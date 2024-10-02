@@ -3,6 +3,7 @@ using MobileСompanyIS.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,8 @@ namespace MobileСompanyIS.ViewModels
 {
     public class PaymentsViewModel : INotifyPropertyChanged
     {
+        private DataService dataService;
+
         private Payment _selectedPayment;
 
         public ObservableCollection<Payment> Payments { get; set; }
@@ -27,31 +30,19 @@ namespace MobileСompanyIS.ViewModels
             }
         }
 
-        public ICommand AddPaymentCommand { get; }
-        public ICommand DeletePaymentCommand { get; }
-
         public PaymentsViewModel()
         {
-            Payments = new ObservableCollection<Payment>();
-            AddPaymentCommand = new RelayCommand(AddPayment);
-            DeletePaymentCommand = new RelayCommand(DeletePayment, CanDeletePayment);
+            dataService = new DataService();
+
+            Payments = new ObservableCollection<Payment>(dataService.LoadPayments());
+
+            Payments.CollectionChanged += Payments_CollectionChanged;
         }
 
-        private void AddPayment()
+        private void Payments_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
-            // Логика добавления платежа
+            dataService.SavePayments(new List<Payment>(Payments));
         }
-
-        private void DeletePayment()
-        {
-            if (SelectedPayment != null)
-            {
-                Payments.Remove(SelectedPayment);
-                SelectedPayment = null;
-            }
-        }
-
-        private bool CanDeletePayment() => SelectedPayment != null;
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)

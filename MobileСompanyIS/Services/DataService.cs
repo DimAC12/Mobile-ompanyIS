@@ -50,9 +50,6 @@ namespace MobileСompanyIS.Services
         public void SavePayments(List<Payment> payments) => SaveToFile("payments.json", payments);
         public List<Payment> LoadPayments() => LoadFromFile<Payment>("payments.json");
 
-        public void SaveServices(List<Service> services) => SaveToFile("services.json", services);
-        public List<Service> LoadServices() => LoadFromFile<Service>("services.json");
-
         public void SaveTariffs(List<Tariff> tariffs) => SaveToFile("tariffs.json", tariffs);
         public List<Tariff> LoadTariffs() => LoadFromFile<Tariff>("tariffs.json");
     }
