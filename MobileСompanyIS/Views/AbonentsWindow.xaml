@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MobileСompanyIS.Views"
         mc:Ignorable="d"
-        Title="AbonentsWindow" Height="450" Width="800">
+        Title="AbonentsWindow" Height="450" Width="1000">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -28,9 +28,11 @@
 
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
             <Button Content="Добавить" Command="{Binding AddAbonentCommand}" Width="100" Height="30" Margin="10,0,0,10" VerticalAlignment="Bottom" />
-            <Button Content="Редактировать" Command="{Binding EditAbonentCommand}" Width="100" Height="30" Margin="120,0,0,10" VerticalAlignment="Bottom" />
+            <Button Content="Редактировать" Command="{Binding EditAbonentCommand}" Width="100" Height="30" Margin="10,0,0,10" VerticalAlignment="Bottom" />
             <Button Content="Удалить" Command="{Binding DeleteAbonentCommand}" Width="100" Height="30" Margin="10,0,0,10" VerticalAlignment="Bottom" />
-            <Button Content="Запустить симуляцию" Command="{Binding StartSimulationCommand}" />
+            <Button Content="Сгенерировать" Command="{Binding GenerateAbonentsCommand}" Width="100" Height="30" Margin="100,0,0,10" VerticalAlignment="Bottom" />
+            <Button Content="Очистить список" Command="{Binding ClearCommand}" Width="100" Height="30" Margin="10,0,0,10" VerticalAlignment="Bottom" />
+
         </StackPanel>
     </Grid>
 </Window>

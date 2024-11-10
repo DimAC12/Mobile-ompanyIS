@@ -30,13 +30,23 @@ namespace MobileСompanyIS.ViewModels
             }
         }
 
+        public ICommand ClearCommand { get; }
+
         public PaymentsViewModel()
         {
+            ClearCommand = new RelayCommand(Clear);
+
             dataService = new DataService();
 
             Payments = new ObservableCollection<Payment>(dataService.LoadPayments());
 
             Payments.CollectionChanged += Payments_CollectionChanged;
+        }
+
+        private void Clear()
+        {
+            Payments.Clear();
+            dataService.SavePayments(Payments.ToList());
         }
 
         private void Payments_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)

@@ -16,11 +16,6 @@ namespace MobileСompanyIS.ViewModels
 
         private CancellationTokenSource _cancellationTokenSource;
 
-        private AbonentsWindow abonentsWindow;
-        private TariffsWindow tariffsWindow;
-        private PaymentsWindow paymentsWindow;
-        private BillsWindow billsWindow;
-
         private AbonentsViewModel aboutViewModel;
         private PaymentsViewModel paymentsViewModel;
         private BillsViewModel billsViewModel;
@@ -42,12 +37,6 @@ namespace MobileСompanyIS.ViewModels
 
             StartSimulationCommand = new RelayCommand(StartSimulation);
             StopSimulationCommand = new RelayCommand(StopSimulation);
-
-
-            abonentsWindow = new AbonentsWindow();
-            tariffsWindow = new TariffsWindow();
-            paymentsWindow = new PaymentsWindow();
-            billsWindow = new BillsWindow();
 
             aboutViewModel = new AbonentsViewModel();
             tariffsViewModel = new TariffsViewModel();

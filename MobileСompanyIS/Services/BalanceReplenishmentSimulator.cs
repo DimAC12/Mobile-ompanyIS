@@ -48,8 +48,6 @@ namespace MobileСompanyIS.Services
                     _payments.Add(replenishment);
                 });
 
-                Debug.WriteLine(_payments.Count);
-
                 var abonents = dataService.LoadAbonents();
 
                 abonents.First(a => a.ID == replenishment.Abonent.ID).Balance += amount;
@@ -58,7 +56,7 @@ namespace MobileСompanyIS.Services
                 subscriber.Balance += amount;
 
                 // Вывод информации о пополнении (для тестирования)
-                Debug.WriteLine($"Абонент {subscriber.FullName} пополнил баланс на {amount} руб.");
+                //Debug.WriteLine($"Абонент {subscriber.FullName} пополнил баланс на {amount} руб.");
             }
         }
     }

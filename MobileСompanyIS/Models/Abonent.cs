@@ -16,7 +16,6 @@ namespace MobileСompanyIS.Models
                 OnPropertyChanged(nameof(FullName));
             }
         }
-        public string SubscriberType { get; set; }
         private string _phoneNumber;
         public string PhoneNumber 
         { 
@@ -27,7 +26,6 @@ namespace MobileСompanyIS.Models
                 OnPropertyChanged(nameof(PhoneNumber));
             }
         }
-        public int TariffID { get; set; }
         private decimal _balance;
         public decimal Balance 
         { 
@@ -49,7 +47,6 @@ namespace MobileСompanyIS.Models
                 OnPropertyChanged(nameof(Status));
             }
         } 
-        public string PassportDetails { get; set; }
 
         public Tariff _tariff { get; set; }
         public Tariff Tariff
@@ -67,7 +64,6 @@ namespace MobileСompanyIS.Models
             get => RegistrationDate.ToString("dd.MM.yyyy HH:mm:ss");
         }
 
-        public ObservableCollection<Payment> Payments { get; } = new ObservableCollection<Payment>();
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)

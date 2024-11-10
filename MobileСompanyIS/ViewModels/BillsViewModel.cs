@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace MobileСompanyIS.ViewModels
 {
@@ -29,12 +30,22 @@ namespace MobileСompanyIS.ViewModels
             }
         }
 
+        public ICommand ClearCommand { get; }
+
         public BillsViewModel()
         {
+            ClearCommand = new RelayCommand(Clear);
+
             dataService = new DataService();
             Bills = new ObservableCollection<Bill>(dataService.LoadBills());
 
             Bills.CollectionChanged += Bills_CollectionChanged;
+        }
+
+        private void Clear()
+        {
+            Bills.Clear();
+            dataService.SaveBills(Bills.ToList());
         }
 
         private void Bills_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)

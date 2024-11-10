@@ -1,4 +1,5 @@
-﻿using MobileСompanyIS.Models;
+﻿using Bogus;
+using MobileСompanyIS.Models;
 using MobileСompanyIS.Services;
 using MobileСompanyIS.Views;
 using System;
@@ -35,6 +36,8 @@ namespace MobileСompanyIS.ViewModels
         public ICommand AddTariffCommand { get; }
         public ICommand EditTariffCommand { get; }
         public ICommand DeleteTariffCommand { get; }
+        public ICommand GenerateTariffsCommand { get; }
+        public ICommand ClearCommand { get; }
 
         public TariffsViewModel()
         {
@@ -43,6 +46,8 @@ namespace MobileСompanyIS.ViewModels
             AddTariffCommand = new RelayCommand(AddTariff);
             EditTariffCommand = new RelayCommand(EditTariff, CanEditTariff);
             DeleteTariffCommand = new RelayCommand(DeleteTariff, CanDeleteTariff);
+            GenerateTariffsCommand = new RelayCommand(GenerateTariffs);
+            ClearCommand = new RelayCommand(Clear);
 
             Tariffs.CollectionChanged += Tariffs_CollectionChanged;
         }
@@ -50,6 +55,39 @@ namespace MobileСompanyIS.ViewModels
         private void Tariffs_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             _dataService.SaveTariffs(new List<Tariff>(Tariffs));
+        }
+
+        private void GenerateTariffs()
+        {
+            //GenerateRandomTariffs(10);
+            foreach (var tariff in GenerateRandomTariffs(10))
+            {
+                Tariffs.Add(tariff);
+            }
+        }
+
+        private List<Tariff> GenerateRandomTariffs(int count)
+        {
+            var id = 0;
+            if (Tariffs.Count > 0)
+            {
+                id = Tariffs.Last().ID + 1;
+            }
+
+            var tariffFaker = new Faker<Tariff>("ru")
+                .RuleFor(t => t.ID, f => id++)
+                .RuleFor(t => t.Name, f => f.Random.Word()) // Случайное название тарифа
+                .RuleFor(t => t.CostPerMinute, f => Math.Round(f.Random.Decimal(0.1m, 5.0m), 2)) // Округление до 2 знаков после запятой
+                .RuleFor(t => t.CostPerSms, f => Math.Round(f.Random.Decimal(0.01m, 1.0m), 2)) // Округление до 2 знаков после запятой
+                .RuleFor(t => t.CostPerMb, f => Math.Round(f.Random.Decimal(0.05m, 2.0m), 2));
+
+            return tariffFaker.Generate(count);
+        }
+
+        private void Clear()
+        {
+            Tariffs.Clear();
+            _dataService.SaveTariffs(Tariffs.ToList());
         }
 
         private void AddTariff()

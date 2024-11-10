@@ -21,6 +21,7 @@ namespace MobileСompanyIS.Views
         {
             InitializeComponent();
             DataContext = new MainViewModel();
+
         }
     }
 }

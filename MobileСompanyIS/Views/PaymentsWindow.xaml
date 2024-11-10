@@ -7,15 +7,20 @@
         mc:Ignorable="d"
         Title="PaymentsWindow" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
         <ListView ItemsSource="{Binding Payments}" SelectedItem="{Binding SelectedPayment}" Margin="10">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Абонент" DisplayMemberBinding="{Binding Abonent.FullName}" Width="150" />
                     <GridViewColumn Header="Дата платежа" DisplayMemberBinding="{Binding PaymentDate}" Width="100" />
                     <GridViewColumn Header="Сумма" DisplayMemberBinding="{Binding Amount}" Width="100" />
-                    <GridViewColumn Header="Метод оплаты" DisplayMemberBinding="{Binding PaymentMethod}" Width="100" />
                 </GridView>
             </ListView.View>
         </ListView>
+
+        <Button Command="{Binding ClearCommand}" Content="Очистить" FontSize="15" Grid.Row="1" Height="30" Width="200" Margin="5"/>
     </Grid>
 </Window>

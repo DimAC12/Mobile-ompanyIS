@@ -1,4 +1,5 @@
-﻿using MobileСompanyIS.Models;
+﻿using Bogus;
+using MobileСompanyIS.Models;
 using MobileСompanyIS.Services;
 using MobileСompanyIS.Views;
 using System;
@@ -43,7 +44,8 @@ namespace MobileСompanyIS.ViewModels
         public ICommand AddAbonentCommand { get; }
         public ICommand EditAbonentCommand { get; }
         public ICommand DeleteAbonentCommand { get; }
-        public ICommand StartSimulationCommand { get; }
+        public ICommand GenerateAbonentsCommand { get; }
+        public ICommand ClearCommand { get; }
 
         public AbonentsViewModel()
         {
@@ -53,31 +55,49 @@ namespace MobileСompanyIS.ViewModels
             AddAbonentCommand = new RelayCommand(AddAbonent);
             EditAbonentCommand = new RelayCommand(EditAbonent, CanEditAbonent);
             DeleteAbonentCommand = new RelayCommand(DeleteAbonent, CanDeleteAbonent);
+            GenerateAbonentsCommand = new RelayCommand(GenerateAbonents);
+            ClearCommand = new RelayCommand(Clear);
 
             Abonents.CollectionChanged += Abonents_CollectionChanged;
-
-            //StartSimulation();
         }
-
-        //public void StartSimulation()
-        //{
-        //    _cancellationTokenSource = new CancellationTokenSource();
-        //    _replenishmentSimulator = new BalanceReplenishmentSimulator(Abonents.ToList());
-        //    _expenseSimulator = new ExpenseSimulator(Abonents.ToList(), Tariffs.ToList());
-
-        //    // Запускаем симуляции параллельно
-        //    Task.Run(() => _replenishmentSimulator.SimulateReplenishment(_cancellationTokenSource.Token));
-        //    Task.Run(() => _expenseSimulator.SimulateExpenses(_cancellationTokenSource.Token));
-        //}
-
-        //public void StopSimulation()
-        //{
-        //    _cancellationTokenSource?.Cancel();
-        //}
 
         private void Abonents_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             _dataService.SaveAbonents(new List<Abonent>(Abonents));
+        }
+
+        private void GenerateAbonents()
+        {
+            foreach (var abonent in GenerateRandomAbonents(10))
+            {
+                Abonents.Add(abonent);
+            }
+        }
+
+        private List<Abonent> GenerateRandomAbonents(int count)
+        {
+            var id = 0;
+            if (Abonents.Count > 0)
+            {
+                id = Abonents.Last().ID + 1;
+            }
+
+            var abonentFaker = new Faker<Abonent>()
+                .RuleFor(a => a.ID, f => id++) // ID по порядку
+                .RuleFor(a => a.FullName, f => f.Name.FullName()) // Случайное имя абонента
+                .RuleFor(a => a.PhoneNumber, f => f.Phone.PhoneNumber("+7 (###) ###-##-##")) // Случайный номер телефона
+                .RuleFor(a => a.Balance, f => Math.Round(f.Random.Decimal(0m, 1000.0m), 2)) // Случайный баланс
+                .RuleFor(a => a.RegistrationDate, f => f.Date.Past(5)) // Случайная дата регистрации за последние 5 лет
+                .RuleFor(a => a.Status, f => f.PickRandom(new[] { "Активен", "Заблокирован"})) // Случайный статус
+                .RuleFor(a => a.Tariff, f => f.PickRandom(_dataService.LoadTariffs())); // Случайный тариф из переданного списка
+
+            return abonentFaker.Generate(count);
+        }
+
+        private void Clear()
+        {
+            Abonents.Clear();
+            _dataService.SaveAbonents(Abonents.ToList());
         }
 
         private void AddAbonent()
@@ -97,9 +117,6 @@ namespace MobileСompanyIS.ViewModels
                 addViewModel.Abonent.ID = id;
                 addViewModel.Abonent.RegistrationDate = DateTime.Now;
                 Abonents.Add(addViewModel.Abonent);
-
-                //StopSimulation();
-                //StartSimulation();
             }
         }
 
